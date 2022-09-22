@@ -1,3 +1,4 @@
+import 'package:exam_app/RegistrationPages/ElevatedBottun.dart';
 import 'package:flutter/material.dart';
 
 class RegistrationPage extends StatelessWidget {
@@ -9,20 +10,7 @@ class RegistrationPage extends StatelessWidget {
       ),
       body: Center(
         child: Column(
-          children: [
-            FloatingActionButton(
-              onPressed: () {
-                Navigator.pushNamed(context, "/login");
-              },
-              child: Text("Login"),
-            ),
-            FloatingActionButton(
-              onPressed: () {
-                Navigator.pushNamed(context, "/signin");
-              },
-              child: Text("Signin"),
-            ),
-          ],
+          children: [Elevated("login", "LogIn"), Elevated("signin", "SignIn")],
         ),
       ),
     );
