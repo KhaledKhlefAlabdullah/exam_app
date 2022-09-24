@@ -1,6 +1,8 @@
+import 'package:exam_app/RegistrationPages/Email_Password_Page.dart';
 import 'package:flutter/material.dart';
 
 class SignInPage extends StatelessWidget {
+  var signin_controller_name = TextEditingController();
   var signin_controller_email = TextEditingController();
   var signin_controller_password = TextEditingController();
   final formKey = GlobalKey<FormState>();
@@ -24,59 +26,31 @@ class SignInPage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  //email text form field
                   TextFormField(
-                    controller: signin_controller_email,
-                    keyboardType: TextInputType.emailAddress,
-                    autofillHints: [AutofillHints.email],
+                    controller: signin_controller_name,
+                    keyboardType: TextInputType.name,
+                    autofillHints: [AutofillHints.name],
                     validator: ((value) {
                       if (value!.isEmpty || value == null) {
-                        return "empty Email";
+                        return "empty name";
                       } else {
-                        bool state = RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}')
+                        bool state = RegExp("^[a-zA-Z][a-zA-Z\s]{0,20}[a-zA-Z]")
                             .hasMatch(value);
                         if (!state) {
-                          return "this is not email";
+                          return "this is not name";
                         }
                       }
                     }),
                     decoration: InputDecoration(
-                      labelText: "Email",
-                      prefixIcon: Icon(Icons.email),
+                      labelText: "Name",
+                      prefixIcon: Icon(Icons.person),
                     ),
                     style: TextStyle(
                       fontFamily: "",
                     ),
                   ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  // password text form field
-                  TextFormField(
-                    controller: signin_controller_password,
-                    keyboardType: TextInputType.visiblePassword,
-                    autofillHints: [AutofillHints.password],
-                    validator: ((value) {
-                      if (value!.isEmpty || value == null) {
-                        return "Password must be eight letters and contain numbers and a large character";
-                      } else {
-                        bool state =
-                            RegExp("(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}")
-                                .hasMatch(value);
-                        if (!state) {
-                          return "this password is not currect";
-                        }
-                      }
-                    }),
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      labelText: "Password",
-                      prefixIcon: Icon(Icons.password),
-                    ),
-                    style: TextStyle(
-                      fontFamily: "",
-                    ),
-                  ),
+                  Email_Password(
+                      signin_controller_email, signin_controller_email),
                   SizedBox(
                     height: 20,
                   ),
@@ -89,9 +63,24 @@ class SignInPage extends StatelessWidget {
                           Navigator.pushNamed(context, "/");
                         }
                       },
-                      child: Text("Login"),
+                      child: Text("SignIn"),
                     ),
                   ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(children: [
+                    Text("You have acount"),
+                    Container(
+                      width: 75,
+                      height: 30,
+                      child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.pushNamed(context, "/login");
+                          },
+                          child: Text("Login")),
+                    )
+                  ])
                 ],
               ))),
     );

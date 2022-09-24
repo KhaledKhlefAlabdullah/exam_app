@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'RegistrationPages/RegistrationPage.dart';
 import 'RegistrationPages/LogInPage.dart';
 import 'RegistrationPages/SignInPage.dart';
 
@@ -15,9 +14,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.lightBlue),
-      initialRoute: "/",
+      initialRoute: "/signin",
       routes: {
-        "/": (context) => RegistrationPage(),
         "/login": (context) => LogInPage(),
         "/signin": (context) => SignInPage(),
       },
