@@ -49,8 +49,11 @@ class SignInPage extends StatelessWidget {
                       fontFamily: "",
                     ),
                   ),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Email_Password(
-                      signin_controller_email, signin_controller_email),
+                      signin_controller_email, signin_controller_password),
                   SizedBox(
                     height: 20,
                   ),
@@ -70,7 +73,7 @@ class SignInPage extends StatelessWidget {
                     height: 20,
                   ),
                   Row(children: [
-                    Text("You have acount"),
+                    Text("You have acount "),
                     Container(
                       width: 75,
                       height: 30,
@@ -79,7 +82,8 @@ class SignInPage extends StatelessWidget {
                             Navigator.pushNamed(context, "/login");
                           },
                           child: Text("Login")),
-                    )
+                    ),
+                    Text(" to your acount "),
                   ])
                 ],
               ))),
