@@ -1,13 +1,23 @@
 import 'package:flutter/material.dart';
 
-// I build aclass contanes at
-class Email_Password extends StatelessWidget {
+// I build aclass contanes at Email_Password text form faild
+class Email_Password extends StatefulWidget {
   var email_controler;
   var password_controler;
   Email_Password(email_controler, password_controler) {
     this.email_controler = email_controler;
     this.password_controler = password_controler;
   }
+  @override
+  State<Email_Password> createState() =>
+      _MyWidgetState(email_controler, password_controler);
+}
+
+class _MyWidgetState extends State<Email_Password> {
+  var obscure_stat = true;
+  var email_controler;
+  var password_controler;
+  _MyWidgetState(email_controler, password_controler);
   @override
   Widget build(BuildContext context) {
     return Column(children: [
@@ -53,11 +63,17 @@ class Email_Password extends StatelessWidget {
             }
           }
         }),
-        obscureText: true,
+        obscureText: obscure_stat,
         decoration: InputDecoration(
-          labelText: "Password",
-          prefixIcon: Icon(Icons.password),
-        ),
+            labelText: "Password",
+            prefixIcon: Icon(Icons.password),
+            suffixIcon: IconButton(
+                onPressed: () {
+                  setState(() {
+                    obscure_stat = !obscure_stat;
+                  });
+                },
+                icon: Icon(Icons.remove_red_eye))),
         style: TextStyle(
           fontFamily: "",
         ),

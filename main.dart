@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+
 import 'RegistrationPages/LogInPage.dart';
 import 'RegistrationPages/SignInPage.dart';
 
 void main(List<String> args) {
-  runApp(
-      //MultiProvider(providers: [], child: MyApp())
+  runApp(//MultiProvider(providers: [
+      //   ChangeNotifierProvider<>(
+      //       create: (context) => ()),
+      // ], child: MyApp())
       MyApp());
 }
 
