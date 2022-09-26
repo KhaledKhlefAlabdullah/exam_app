@@ -1,24 +1,24 @@
 class Users {
   int? id;
-  String? firstName;
-  String? lastName;
-  String? average;
+  String? userName;
+  String? email;
+  String? password;
 
-  Users({this.id, this.firstName, this.lastName, this.average});
+  Users({this.id, this.userName, this.email, this.password});
 
   Users.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    firstName = json['first_name'];
-    lastName = json['last_name'];
-    average = json['average'];
+    userName = json['User_Name'];
+    email = json['Email'];
+    password = json['Password'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data['first_name'] = this.firstName;
-    data['last_name'] = this.lastName;
-    data['average'] = this.average;
+    data['User_Name'] = this.userName;
+    data['Email'] = this.email;
+    data['Password'] = this.password;
     return data;
   }
 }

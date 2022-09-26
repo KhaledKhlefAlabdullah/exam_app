@@ -13,7 +13,8 @@ class UsersMethods {
     List<dynamic> lstd = jsonDecode(server.body
         .toString()); // اخذ اليبانات من قاعدة ابيانات وتخزينها في لائحة
     lst = lstd
-        .map((s) => Users.fromJson(s))
+        .map((u) => Users.fromJson(u))
         .toList(); // اسناد  البيانات الي اللائحة الرئيسية التي سيتم عرضها في الصفح
+    print(lst);
   }
 }

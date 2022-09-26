@@ -128,9 +128,9 @@ def select_data_from_Users_table():
     for i in lst:# حلقة لجلب محتوى كل خلية حسب فهرس السطر واسم العمود وتخزينه في دكشنري
         item={}
         item['id']=i[0]
-        item['first_name']=i[1]
-        item['last_name']=i[2]
-        item['average']=i[3]
+        item['User_Name']=i[1]
+        item['Email']=i[2]
+        item['Password']=i[3]
         lst_jason.append(item)
     connect_database.close()
     print({"status": "success"})
