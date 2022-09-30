@@ -24,6 +24,7 @@ def insert_data_to_Users_table(User_Name: str, Email: str, Password: str):
     connect_database.close()
     return {"status": "success"}
 
+
 # Insert Data To User_Detales Table
 
 
@@ -113,3 +114,24 @@ def insert_data_to_User_Detalse_table(Answer: str):
     connect_database.commit()
     connect_database.close()
     return {"status": "success"}
+
+
+####Select Founction####
+#Select Data From Users Table
+@app.get("/select/Users")
+def select_data_from_Users_table():
+    connect_database = sq.connect("Exam_App_DB.db")
+    select_data = "select * from Users"
+    Coursor=connect_database.execute(select_data)
+    lst=Coursor.fetchall()# تكرار عملية الاستعلام بعدد الريكوردات الموجودة
+    lst_jason=[]# تعريف مصفوفة لتخزين الريكوردات على شكل دكشنري
+    for i in lst:# حلقة لجلب محتوى كل خلية حسب فهرس السطر واسم العمود وتخزينه في دكشنري
+        item={}
+        item['id']=i[0]
+        item['User_Name']=i[1]
+        item['Email']=i[2]
+        item['Password']=i[3]
+        lst_jason.append(item)
+    connect_database.close()
+    print({"status": "success"})
+    return lst_jason
