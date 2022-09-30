@@ -6,10 +6,10 @@ class HomeUser extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       body: Container(
-        color: Colors.red,
-        width: double.infinity,
-        height: double.infinity,
-      ),
+          color: Colors.red,
+          width: double.infinity,
+          height: double.infinity,
+          child: Text("Home user Page")),
     );
   }
 }

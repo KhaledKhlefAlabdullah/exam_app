@@ -1,6 +1,8 @@
-import 'package:exam_app/ControlPanelPage/ControlPanelPage.dart';
+import 'package:exam_app/Control_Panel_Pages/InsertQuestionsAndAnswers.dart';
+import 'package:exam_app/User_Pages/HomeUserPage.dart';
 import 'package:flutter/material.dart';
 
+import 'Control_Panel_Pages/ControlPanelPage.dart';
 import 'RegistrationPages/LogInPage.dart';
 import 'RegistrationPages/SignInPage.dart';
 
@@ -18,11 +20,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.lightBlue),
-      initialRoute: "/signin",
+      initialRoute: "/controlporde",
+      //"/signin",//just for now
       routes: {
+        "/homeUser": (context) => HomeUser(),
         "/login": (context) => LogInPage(),
         "/signin": (context) => SignInPage(),
         "/controlporde": (context) => ControlPanel(),
+        "/insertQuestionsAndAnswers": (context) => InsertQuestionsAndAnswers(),
       },
     );
   }

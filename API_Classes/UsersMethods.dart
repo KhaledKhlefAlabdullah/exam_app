@@ -1,6 +1,8 @@
 import 'dart:convert';
 
-import 'package:http/http.dart' as http; //استيراد مكتبةللاتصال بالسيرفر
+import 'package:http/http.dart' as http;
+
+import '../RegistrationPages/Email_Password_Page.dart'; //استيراد مكتبةللاتصال بالسيرفر
 
 class UsersMethods {
   static Future<bool> loginUsers(email, password) async {
@@ -10,6 +12,7 @@ class UsersMethods {
       "password": "Admin2001"
     })); // استدعاء دالة ال اي بي ااي التي تفوم بعرض كل البيانات
     print(server.body.toString());
+    print(Email_Password.email_controler.text);
     if (server.body.toString() == "true") {
       return true;
     } else {
@@ -24,7 +27,7 @@ class UsersMethods {
     if (server.body.toString() == "addmin") {
       return "addmin";
     } else {
-      return "addmin";
+      return "student";
     }
   }
 }

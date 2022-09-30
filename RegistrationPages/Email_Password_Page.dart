@@ -2,12 +2,8 @@ import 'package:flutter/material.dart';
 
 // I build aclass contanes at Email_Password text form faild
 class Email_Password extends StatefulWidget {
-  var email_controler;
-  var password_controler;
-  Email_Password(email_controler, password_controler) {
-    this.email_controler = email_controler;
-    this.password_controler = password_controler;
-  }
+  static var email_controler = TextEditingController();
+  static var password_controler = TextEditingController();
   @override
   State<Email_Password> createState() =>
       _MyWidgetState(email_controler, password_controler);
