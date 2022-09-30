@@ -1,3 +1,4 @@
+import 'package:exam_app/ControlPanelPage/ControlPanelPage.dart';
 import 'package:flutter/material.dart';
 
 import 'RegistrationPages/LogInPage.dart';
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
       routes: {
         "/login": (context) => LogInPage(),
         "/signin": (context) => SignInPage(),
+        "/controlporde": (context) => ControlPanel(),
       },
     );
   }

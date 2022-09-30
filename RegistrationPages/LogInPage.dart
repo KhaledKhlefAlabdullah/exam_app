@@ -1,8 +1,10 @@
 import 'package:exam_app/API_Classes/UsersMethods.dart';
+
 import 'package:exam_app/RegistrationPages/Email_Password_Page.dart';
+import 'package:exam_app/User_Pages/HomeUserPage.dart';
 import 'package:flutter/material.dart';
 
-import '../API_Classes/Users_Detales.dart';
+import '../Control_Panel_Pages/ControlPanelPage.dart';
 
 class LogInPage extends StatelessWidget {
   var login_controller_email = TextEditingController();
@@ -39,10 +41,29 @@ class LogInPage extends StatelessWidget {
                     height: 80,
                     child: ElevatedButton(
                       onPressed: () {
+                        print(login_controller_email.text);
                         if (formKey.currentState!.validate()) {
-                          // UsersMethods.loginUsers(login_controller_email.text,
-                          //     login_controller_password.text);
-                          UsersMethods.getUser_Detales(1);
+                          UsersMethods.loginUsers(login_controller_email.text,
+                                  login_controller_password.text)
+                              .then((value) {
+                            if (value) {
+                              UsersMethods.getUser_detales(
+                                      login_controller_email.text)
+                                  .then((value) {
+                                if (value == "addmin") {
+                                  Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(builder: (_) {
+                                    return const ControlPanel();
+                                  }));
+                                } else {
+                                  Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(builder: (_) {
+                                    return HomeUser();
+                                  }));
+                                }
+                              });
+                            }
+                          });
                         }
                       },
                       child: Text("Login"),

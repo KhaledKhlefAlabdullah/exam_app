@@ -118,7 +118,7 @@ def insert_data_to_User_Detalse_table(Answer: str):
 @app.get("/login")
 def login(email,password):
     connect_database = sq.connect("Exam_App_DB.db")
-    select_data = "select * from Users where Email='{}' and Password='{}'".format(email,password)
+    select_data = "select Email,Password from Users where Email='{}' and Password='{}'".format(email,password)
     Coursor=connect_database.execute(select_data)
     lst=Coursor.fetchall()# تكرار عملية الاستعلام بعدد الريكوردات الموجودة
     if len(lst)>0:#التأكد من وجود الحساب في قاعدة البيانات
@@ -146,16 +146,15 @@ def select_data_from_Users_table():
     return lst_jason
 
 #Select Data From Users_Detales Table
-@app.get("/select/Users_Detales")
-def select_data_from_Users_Detales_table(userEmail):
+@app.get("/select/User_Detales")
+def select_data_from_User_Detales_table(userEmail):
     connect_database = sq.connect("Exam_App_DB.db")
     select_data = "select User_Detales.User_Type from User_Detales where User_Id=(SELECT id from Users WHERE Email='{}')".format(userEmail)
     Coursor=connect_database.execute(select_data)
-    lst=Coursor.fetchall()# تكرار عملية الاستعلام بعدد الريكوردات الموجودة
-    lst_jason=[]# تعريف مصفوفة لتخزين الريكوردات على شكل دكشنري
+    type=Coursor.fetchall()# تكرار عملية الاستعلام بعدد الريكوردات الموجودة
     item={}
-    item['User_Type']=lst[0]
-    lst_jason.append(item)
+    for i in type:# حلقة لجلب محتوى كل خلية حسب فهرس السطر واسم العمود وتخزينه في دكشنري
+        item['User_Type']=i[0]
     connect_database.close()
     print({"status": "success"})
-    return lst_jason
+    return item
