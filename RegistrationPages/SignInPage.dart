@@ -6,12 +6,6 @@ class SignInPage extends StatelessWidget {
   var signin_controller_name = TextEditingController();
   var signin_controller_email = TextEditingController();
   var signin_controller_password = TextEditingController();
-  var lst = UsersMethods.lst;
-  // test_data_controlers(){
-  //   for (dynamic ls in lst) {
-  //     if(ls)
-  //   }
-  // }
   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -76,7 +70,7 @@ class SignInPage extends StatelessWidget {
                           onPressed: () {
                             if (formKey.currentState!.validate()) {
                               //Navigator.pushNamed(context, "/");
-                              UsersMethods.getUsers();
+
                             }
                           },
                           child: Text("SignIn"),

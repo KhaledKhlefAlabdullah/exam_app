@@ -114,8 +114,17 @@ def insert_data_to_User_Detalse_table(Answer: str):
     connect_database.commit()
     connect_database.close()
     return {"status": "success"}
-
-
+####Login####
+@app.get("/login")
+def login(email,password):
+    connect_database = sq.connect("Exam_App_DB.db")
+    select_data = "select * from Users where Email='{}' and Password='{}'".format(email,password)
+    Coursor=connect_database.execute(select_data)
+    lst=Coursor.fetchall()# تكرار عملية الاستعلام بعدد الريكوردات الموجودة
+    if len(lst)>0:#التأكد من وجود الحساب في قاعدة البيانات
+        return True
+    else:
+        return False
 ####Select Founction####
 #Select Data From Users Table
 @app.get("/select/Users")
@@ -132,6 +141,21 @@ def select_data_from_Users_table():
         item['Email']=i[2]
         item['Password']=i[3]
         lst_jason.append(item)
+    connect_database.close()
+    print({"status": "success"})
+    return lst_jason
+
+#Select Data From Users_Detales Table
+@app.get("/select/Users_Detales")
+def select_data_from_Users_Detales_table(userEmail):
+    connect_database = sq.connect("Exam_App_DB.db")
+    select_data = "select User_Detales.User_Type from User_Detales where User_Id=(SELECT id from Users WHERE Email='{}')".format(userEmail)
+    Coursor=connect_database.execute(select_data)
+    lst=Coursor.fetchall()# تكرار عملية الاستعلام بعدد الريكوردات الموجودة
+    lst_jason=[]# تعريف مصفوفة لتخزين الريكوردات على شكل دكشنري
+    item={}
+    item['User_Type']=lst[0]
+    lst_jason.append(item)
     connect_database.close()
     print({"status": "success"})
     return lst_jason
