@@ -1,9 +1,11 @@
+import 'package:exam_app/API_Classes/UsersMethods.dart';
+
 import 'package:exam_app/RegistrationPages/Email_Password_Page.dart';
+import 'package:exam_app/User_Pages/HomeUserPage.dart';
 import 'package:flutter/material.dart';
+import '../Control_Panel_Pages/ControlPanelPage.dart';
 
 class LogInPage extends StatelessWidget {
-  var login_controller_email = TextEditingController();
-  var login_controller_password = TextEditingController();
   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -26,8 +28,7 @@ class LogInPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   // I use the class who contanes at text form field to email and password
-                  Email_Password(
-                      login_controller_email, login_controller_password),
+                  Email_Password(),
                   SizedBox(
                     height: 20,
                   ),
@@ -37,7 +38,28 @@ class LogInPage extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () {
                         if (formKey.currentState!.validate()) {
-                          Navigator.pushNamed(context, "/");
+                          UsersMethods.loginUsers(
+                                  Email_Password.email_controler.text,
+                                  Email_Password.password_controler.text)
+                              .then((value) {
+                            if (value) {
+                              UsersMethods.getUser_detales(
+                                      Email_Password.email_controler.text)
+                                  .then((value) {
+                                if (value == "addmin") {
+                                  Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(builder: (_) {
+                                    return ControlPanel();
+                                  }));
+                                } else {
+                                  Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(builder: (_) {
+                                    return HomeUser();
+                                  }));
+                                }
+                              });
+                            }
+                          });
                         }
                       },
                       child: Text("Login"),

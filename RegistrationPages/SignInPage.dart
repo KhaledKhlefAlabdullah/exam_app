@@ -1,17 +1,14 @@
-import 'package:exam_app/API_Classes/UsersMethods.dart';
 import 'package:exam_app/RegistrationPages/Email_Password_Page.dart';
 import 'package:flutter/material.dart';
+
+import '../API_Classes/UsersMethods.dart';
+import '../Control_Panel_Pages/ControlPanelPage.dart';
+import '../User_Pages/HomeUserPage.dart';
 
 class SignInPage extends StatelessWidget {
   var signin_controller_name = TextEditingController();
   var signin_controller_email = TextEditingController();
   var signin_controller_password = TextEditingController();
-  var lst = UsersMethods.lst;
-  // test_data_controlers(){
-  //   for (dynamic ls in lst) {
-  //     if(ls)
-  //   }
-  // }
   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -64,8 +61,7 @@ class SignInPage extends StatelessWidget {
                       SizedBox(
                         height: 20,
                       ),
-                      Email_Password(
-                          signin_controller_email, signin_controller_password),
+                      Email_Password(),
                       SizedBox(
                         height: 20,
                       ),
@@ -75,8 +71,53 @@ class SignInPage extends StatelessWidget {
                         child: ElevatedButton(
                           onPressed: () {
                             if (formKey.currentState!.validate()) {
-                              //Navigator.pushNamed(context, "/");
-                              UsersMethods.getUsers();
+                              UsersMethods.loginUsers(
+                                      Email_Password.email_controler.text,
+                                      Email_Password.password_controler.text)
+                                  .then((value) {
+                                if (value) {
+                                  showDialog(
+                                      context: context,
+                                      builder: (_) {
+                                        return AlertDialog(
+                                          // اظهار نافذة منبثقة تعرض عند الضغط على زر
+                                          title:
+                                              Text("Signin"), // عنوان النافذة
+                                          content: Text(
+                                              "You alredy have acount do yo want to login"), // محتوى النافذة
+                                          actions: [
+                                            // الافعال في النافذة أي الازرار الموجودة
+                                            Row(
+                                              children: [
+                                                Expanded(
+                                                  child: ElevatedButton(
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pushNamed(
+                                                                "/login");
+                                                      },
+                                                      child: Text("Yes")),
+                                                ),
+                                                Expanded(
+                                                  child: ElevatedButton(
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                      child: Text("No")),
+                                                )
+                                              ],
+                                            )
+                                          ],
+                                        );
+                                      });
+                                } else {
+                                  Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(builder: (_) {
+                                    return HomeUser();
+                                  }));
+                                }
+                              });
                             }
                           },
                           child: Text("SignIn"),
@@ -90,13 +131,13 @@ class SignInPage extends StatelessWidget {
                         Container(
                           width: 75,
                           height: 30,
-                          child: ElevatedButton(
-                              onPressed: () {
+                          child: InkWell(
+                              onTap: () {
                                 Navigator.pushNamed(context, "/login");
                               },
                               child: Text("Login")),
                         ),
-                        Text(" to your acount "),
+                        Text(" to your acount"),
                       ])
                     ],
                   )))),
