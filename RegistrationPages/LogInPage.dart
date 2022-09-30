@@ -1,3 +1,4 @@
+import 'package:exam_app/API_Classes/UsersMethods.dart';
 import 'package:exam_app/RegistrationPages/Email_Password_Page.dart';
 import 'package:flutter/material.dart';
 
@@ -37,7 +38,8 @@ class LogInPage extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () {
                         if (formKey.currentState!.validate()) {
-                          Navigator.pushNamed(context, "/");
+                          UsersMethods.loginUsers(login_controller_email.text,
+                              login_controller_password.text);
                         }
                       },
                       child: Text("Login"),
