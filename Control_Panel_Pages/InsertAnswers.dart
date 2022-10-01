@@ -1,9 +1,16 @@
+import 'package:exam_app/My_Providers_Pages/Questions_Provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AnswersTab extends StatelessWidget {
+  int i = 0;
   @override
   var subject_controller = TextEditingController();
   Widget build(BuildContext context) {
+    if (i == 0) {
+      Provider.of<Questions_Provider>(context, listen: false).getQuestions();
+      i++;
+    }
     return SingleChildScrollView(
         child: Column(children: [
       Padding(
@@ -13,14 +20,18 @@ class AnswersTab extends StatelessWidget {
           DataColumn(label: Text("Subject Name")),
           DataColumn(label: Text("Add Answers")),
         ], rows: [
-          DataRow(cells: [
-            DataCell(Text("1")),
-            DataCell(Text("2")),
-            DataCell(IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.add),
-            )),
-          ])
+          ...Provider.of<Questions_Provider>(context, listen: false)
+              .lst
+              .map((Q) {
+            return DataRow(cells: [
+              DataCell(Text("${Q.question}")),
+              DataCell(Text("${Q.subjectName}")),
+              DataCell(IconButton(
+                onPressed: () {},
+                icon: Icon(Icons.add),
+              )),
+            ]);
+          })
         ]),
       )
     ]));
