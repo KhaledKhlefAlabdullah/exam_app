@@ -1,3 +1,4 @@
+import 'package:exam_app/My_Providers_Pages/InsertProvider.dart';
 import 'package:exam_app/My_Providers_Pages/Questions_Provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -11,6 +12,8 @@ void main(List<String> args) {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider<Questions_Provider>(
         create: (context) => Questions_Provider()),
+    ChangeNotifierProvider<Insert_Provider>(
+        create: ((context) => Insert_Provider()))
   ], child: MyApp()));
 }
 

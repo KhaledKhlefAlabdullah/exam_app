@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../My_Providers_Pages/InsertProvider.dart';
 
 class QuestionTab extends StatelessWidget {
   @override
@@ -32,7 +35,10 @@ class QuestionTab extends StatelessWidget {
                   width: 200,
                   height: 40,
                   child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Provider.of<Insert_Provider>(context, listen: false)
+                            .addSubjects(subject_controller.text);
+                      },
                       child: Row(
                         children: [
                           Icon(Icons.add_task_sharp),
