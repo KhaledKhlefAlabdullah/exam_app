@@ -1,7 +1,5 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
-
 import '../RegistrationPages/Email_Password_Page.dart'; //استيراد مكتبةللاتصال بالسيرفر
 
 class UsersMethods {

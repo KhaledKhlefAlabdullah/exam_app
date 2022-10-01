@@ -1,9 +1,8 @@
-import 'package:exam_app/RegistrationPages/Email_Password_Page.dart';
 import 'package:flutter/material.dart';
-
 import '../API_Classes/UsersMethods.dart';
 import '../Control_Panel_Pages/ControlPanelPage.dart';
 import '../User_Pages/HomeUserPage.dart';
+import 'Email_Password_Page.dart';
 
 class SignInPage extends StatelessWidget {
   var signin_controller_name = TextEditingController();

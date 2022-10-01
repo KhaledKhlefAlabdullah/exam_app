@@ -121,8 +121,9 @@ def login(email,password):
     select_data = "select Email,Password from Users where Email='{}' and Password='{}'".format(email,password)
     Coursor=connect_database.execute(select_data)
     lst=Coursor.fetchall()# تكرار عملية الاستعلام بعدد الريكوردات الموجودة
+    print(lst)
     if len(lst)>0:#التأكد من وجود الحساب في قاعدة البيانات
-        return True
+        return list(lst)[0][0]
     else:
         return False
 ####Select Founction####
@@ -156,5 +157,6 @@ def select_data_from_User_Detales_table(userEmail):
     for i in type:# حلقة لجلب محتوى كل خلية حسب فهرس السطر واسم العمود وتخزينه في دكشنري
         item['User_Type']=i[0]
     connect_database.close()
+    print(item["User_Type"])
     print({"status": "success"})
-    return item
+    return item["User_Type"]
