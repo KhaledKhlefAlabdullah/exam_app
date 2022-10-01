@@ -1,3 +1,5 @@
+import 'package:exam_app/Control_Panel_Pages/InsertAnswers.dart';
+import 'package:exam_app/Control_Panel_Pages/InsertQuestions.dart';
 import 'package:flutter/material.dart';
 
 import 'Drawer.dart';
@@ -41,7 +43,7 @@ class InsertQuestionsAndAnswers extends StatelessWidget {
                 ])
               ])),
           drawer: DrawerPage(),
-          body: Text(""),
+          body: TabBarView(children: [QuestionTab(), AnswersTab()]),
         ));
   }
 }
