@@ -176,18 +176,32 @@ def selectSubject_Id(Subject_Name:str):
 @app.get("/select/Subjects_Questions")
 def select_data_from_subjects_questions():
     connect_database = sq.connect("Exam_App_DB.db")
-    select_data = "select Questions.Question,Subjects.Subject_Name from Questions INNER JOIN Subjects WHERE Subjects.Id=Questions.Subject_Id"
+    select_data = "select Questions.Id,Questions.Question,Subjects.Subject_Name from Questions INNER JOIN Subjects WHERE Subjects.Id=Questions.Subject_Id"
     Cours=connect_database.execute(select_data)
     lst=Cours.fetchall()# تكرار عملية الاستعلام بعدد الريكوردات الموجودة
     print(lst)
     lst_jason=[]# تعريف مصفوفة لتخزين الريكوردات على شكل دكشنري
     for i in lst:# حلقة لجلب محتوى كل خلية حسب فهرس السطر واسم العمود وتخزينه في دكشنري
         item={}
-        item['Question']=i[0]
-        item['Subject_Name']=i[1]
+        item['Id']=i[0]
+        item['Question']=i[1]
+        item['Subject_Name']=i[2]
         print(1)
         lst_jason.append(item)
     connect_database.close()
     print({"status": "success"})
     return lst_jason
 
+
+
+####Delete Functions####
+# Delete Questions
+@app.post("/delete/questions")
+def delete_data_from_questions_table(Id:str):
+    Id=int(Id)
+    connect_database = sq.connect("Exam_App_DB.db")
+    insert_data = "delete from Questions where Id={}".format(Id)
+    connect_database.execute(insert_data)
+    connect_database.commit()
+    connect_database.close()
+    return {"status": "success"}

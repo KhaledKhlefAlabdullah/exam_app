@@ -1,7 +1,7 @@
 import 'package:exam_app/My_Providers_Pages/Questions_Provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../My_Providers_Pages/InsertProvider.dart';
+import '../../My_Providers_Pages/InsertProvider.dart';
 
 class QuestionTab extends StatelessWidget {
   @override
