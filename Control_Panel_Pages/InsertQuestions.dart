@@ -1,6 +1,6 @@
+import 'package:exam_app/My_Providers_Pages/Questions_Provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../My_Providers_Pages/InsertProvider.dart';
 
 class QuestionTab extends StatelessWidget {
@@ -34,20 +34,24 @@ class QuestionTab extends StatelessWidget {
               Container(
                   width: 200,
                   height: 40,
-                  child: ElevatedButton(
-                      onPressed: () {
-                        Provider.of<Insert_Provider>(context, listen: false)
-                            .addSubjects(subject_controller.text);
-                      },
-                      child: Row(
-                        children: [
-                          Icon(Icons.add_task_sharp),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text("add subject")
-                        ],
-                      ))),
+                  child: Visibility(
+                      visible:
+                          Provider.of<Insert_Provider>(context, listen: false)
+                              .visible,
+                      child: ElevatedButton(
+                          onPressed: () {
+                            Provider.of<Insert_Provider>(context, listen: false)
+                                .addSubjects(subject_controller.text);
+                          },
+                          child: Row(
+                            children: [
+                              Icon(Icons.add_task_sharp),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text("add subject")
+                            ],
+                          )))),
               SizedBox(
                 height: 40,
               ),
@@ -68,7 +72,13 @@ class QuestionTab extends StatelessWidget {
                   width: 200,
                   height: 40,
                   child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Provider.of<Insert_Provider>(context, listen: false)
+                            .addQuestions(question_controller.text,
+                                subject_controller.text);
+                        Provider.of<Questions_Provider>(context, listen: false)
+                            .getQuestions();
+                      },
                       child: Row(
                         children: [
                           Icon(Icons.add_box_sharp),

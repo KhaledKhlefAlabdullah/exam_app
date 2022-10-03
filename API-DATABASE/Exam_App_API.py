@@ -74,11 +74,10 @@ def insert_data_to_Scores_table(True_Answers: str, False_Answers: str,
 
 
 @app.post("/insert/Questions")
-def insert_data_to_Questions_table(Question: str, Subject_Id: str):
-    Subject_Id = int(Subject_Id)
+def insert_data_to_Questions_table(Question: str, Subject_Name: str):
     connect_database = sq.connect("Exam_App_DB.db")
-    insert_data = "insert into Questions(Question,Subject_Id) values('{}',{})".format(
-        Question, Subject_Id)
+    insert_data = "insert INTO Questions(Question,Subject_Id) VALUES('{}',(select Id from Subjects where Subject_Name='{}'))".format(
+        Question, Subject_Name)
     connect_database.execute(insert_data)
     connect_database.commit()
     connect_database.close()
@@ -161,6 +160,17 @@ def select_data_from_User_Detales_table(userEmail):
     print(item["User_Type"])
     print({"status": "success"})
     return item["User_Type"]
+
+#Select Subject_Id
+@app.get("/select/Subject_Id")
+def selectSubject_Id(Subject_Name:str):
+    connect_database = sq.connect("Exam_App_DB.db")
+    select_data = "select Id from Subjects where Subject_Name='{}'".format(Subject_Name)
+    Coursor=connect_database.execute(select_data)
+    type=Coursor.fetchone()# تكرار عملية الاستعلام بعدد الريكوردات الموجودة
+    return type[0]
+
+
 
 # Select Data from Subjects and Questions
 @app.get("/select/Subjects_Questions")
