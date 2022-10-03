@@ -89,6 +89,10 @@ class SignInPage extends StatelessWidget {
                                             Row(
                                               children: [
                                                 Expanded(
+                                                  child: Container(),
+                                                  flex: 1,
+                                                ),
+                                                Expanded(
                                                   child: ElevatedButton(
                                                       onPressed: () {
                                                         Navigator.of(context)
@@ -96,6 +100,11 @@ class SignInPage extends StatelessWidget {
                                                                 "/login");
                                                       },
                                                       child: Text("Yes")),
+                                                  flex: 2,
+                                                ),
+                                                Expanded(
+                                                  child: Container(),
+                                                  flex: 1,
                                                 ),
                                                 Expanded(
                                                   child: ElevatedButton(
@@ -104,7 +113,12 @@ class SignInPage extends StatelessWidget {
                                                             .pop();
                                                       },
                                                       child: Text("No")),
-                                                )
+                                                  flex: 2,
+                                                ),
+                                                Expanded(
+                                                  child: Container(),
+                                                  flex: 1,
+                                                ),
                                               ],
                                             )
                                           ],

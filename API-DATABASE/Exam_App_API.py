@@ -43,7 +43,7 @@ def insert_data_to_User_Detalse_table(User_Id: str, User_Type: str):
 
 
 @app.post("/insert/Subjects")
-def insert_data_to_User_Detalse_table(Subject_Name: str):
+def insert_data_to_Subjects_table(Subject_Name: str):
     connect_database = sq.connect("Exam_App_DB.db")
     insert_data = "insert into Subjects(Subject_Name) values('{}')".format(
         Subject_Name)
@@ -56,7 +56,7 @@ def insert_data_to_User_Detalse_table(Subject_Name: str):
 
 
 @app.post("/insert/Scores")
-def insert_data_to_User_Detalse_table(True_Answers: str, False_Answers: str,
+def insert_data_to_Scores_table(True_Answers: str, False_Answers: str,
                                       Subject_Id: str, User_Id: str, Fainal_Score: str):
     True_Answers = int(True_Answers)
     False_Answers = int(False_Answers)
@@ -74,11 +74,10 @@ def insert_data_to_User_Detalse_table(True_Answers: str, False_Answers: str,
 
 
 @app.post("/insert/Questions")
-def insert_data_to_User_Detalse_table(Question: str, Subject_Id: str):
-    Subject_Id = int(Subject_Id)
+def insert_data_to_Questions_table(Question: str, Subject_Name: str):
     connect_database = sq.connect("Exam_App_DB.db")
-    insert_data = "insert into Questions(Question,Subject_Id) values('{}',{})".format(
-        Question, Subject_Id)
+    insert_data = "insert INTO Questions(Question,Subject_Id) VALUES('{}',(select Id from Subjects where Subject_Name='{}'))".format(
+        Question, Subject_Name)
     connect_database.execute(insert_data)
     connect_database.commit()
     connect_database.close()
@@ -88,7 +87,7 @@ def insert_data_to_User_Detalse_table(Question: str, Subject_Id: str):
 
 
 @app.post("/insert/Question_Detales")
-def insert_data_to_User_Detalse_table(Question_Id: str,
+def insert_data_to_Question_Detalse_table(Question_Id: str,
                                       Answer_Id: str,
                                       Answer_Type: str,
                                       User_Detales_Id: str):
@@ -107,7 +106,7 @@ def insert_data_to_User_Detalse_table(Question_Id: str,
 
 
 @app.post("/insert/Answers")
-def insert_data_to_User_Detalse_table(Answer: str):
+def insert_data_to_Answers_table(Answer: str):
     connect_database = sq.connect("Exam_App_DB.db")
     insert_data = "insert into Answers(Answer) values('{}')".format(Answer)
     connect_database.execute(insert_data)
@@ -146,6 +145,7 @@ def select_data_from_Users_table():
     print({"status": "success"})
     return lst_jason
 
+
 #Select Data From Users_Detales Table
 @app.get("/select/User_Detales")
 def select_data_from_User_Detales_table(userEmail):
@@ -160,3 +160,48 @@ def select_data_from_User_Detales_table(userEmail):
     print(item["User_Type"])
     print({"status": "success"})
     return item["User_Type"]
+
+#Select Subject_Id
+@app.get("/select/Subject_Id")
+def selectSubject_Id(Subject_Name:str):
+    connect_database = sq.connect("Exam_App_DB.db")
+    select_data = "select Id from Subjects where Subject_Name='{}'".format(Subject_Name)
+    Coursor=connect_database.execute(select_data)
+    type=Coursor.fetchone()# تكرار عملية الاستعلام بعدد الريكوردات الموجودة
+    return type[0]
+
+
+
+# Select Data from Subjects and Questions
+@app.get("/select/Subjects_Questions")
+def select_data_from_subjects_questions():
+    connect_database = sq.connect("Exam_App_DB.db")
+    select_data = "select Questions.Id,Questions.Question,Subjects.Subject_Name from Questions INNER JOIN Subjects WHERE Subjects.Id=Questions.Subject_Id"
+    Cours=connect_database.execute(select_data)
+    lst=Cours.fetchall()# تكرار عملية الاستعلام بعدد الريكوردات الموجودة
+    print(lst)
+    lst_jason=[]# تعريف مصفوفة لتخزين الريكوردات على شكل دكشنري
+    for i in lst:# حلقة لجلب محتوى كل خلية حسب فهرس السطر واسم العمود وتخزينه في دكشنري
+        item={}
+        item['Id']=i[0]
+        item['Question']=i[1]
+        item['Subject_Name']=i[2]
+        print(1)
+        lst_jason.append(item)
+    connect_database.close()
+    print({"status": "success"})
+    return lst_jason
+
+
+
+####Delete Functions####
+# Delete Questions
+@app.post("/delete/questions")
+def delete_data_from_questions_table(Id:str):
+    Id=int(Id)
+    connect_database = sq.connect("Exam_App_DB.db")
+    insert_data = "delete from Questions where Id={}".format(Id)
+    connect_database.execute(insert_data)
+    connect_database.commit()
+    connect_database.close()
+    return {"status": "success"}

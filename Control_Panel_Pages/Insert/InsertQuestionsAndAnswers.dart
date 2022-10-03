@@ -1,10 +1,18 @@
+import 'package:exam_app/My_Providers_Pages/Questions_Provider.dart';
 import 'package:flutter/material.dart';
-
-import 'Drawer.dart';
+import 'package:provider/provider.dart';
+import '../Drawer.dart';
+import 'InsertAnswers.dart';
+import 'InsertQuestions.dart';
 
 class InsertQuestionsAndAnswers extends StatelessWidget {
+  int i = 0;
   @override
   Widget build(BuildContext context) {
+    if (i == 0) {
+      Provider.of<Questions_Provider>(context, listen: false).getQuestions();
+      i++;
+    }
     return DefaultTabController(
         //لعمل تبويبات في الصفحة
         animationDuration:
@@ -41,7 +49,7 @@ class InsertQuestionsAndAnswers extends StatelessWidget {
                 ])
               ])),
           drawer: DrawerPage(),
-          body: Text(""),
+          body: TabBarView(children: [QuestionTab(), AnswersTab()]),
         ));
   }
 }
